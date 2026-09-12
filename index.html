@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Zombie Road</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#6BB8F2">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zombie Road">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  
+  <div id="screen-menu" class="screen">
+    <div class="sky-bg"></div>
+    <div class="ground-strip"></div>
+    <div class="menu-content">
+      <div class="title-block">
+        <div class="outlined-text title-main">ZOMBIE</div>
+        <div class="outlined-text title-sub">ROAD</div>
+      </div>
+      <div class="pill-row">
+        <div class="pill" id="menu-best"><span class="pill-icon pill-icon-blue" data-icon="flag"></span><span class="pill-text">Best 0m</span></div>
+      </div>
+      <div class="pill-row">
+        <div class="pill"><span class="pill-icon pill-icon-gold" data-icon="cube"></span><span class="pill-text" id="menu-salvage">0</span></div>
+        <div class="pill"><span class="pill-icon pill-icon-teal" data-icon="flask"></span><span class="pill-text" id="menu-intel">0</span></div>
+      </div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-run">RUN</button>
+        <button class="btn btn-secondary" id="btn-upgrades">UPGRADES</button>
+        <button class="btn btn-install" id="btn-install" hidden>📲 INSTALL APP</button>
+      </div>
+      <div class="hint-text">Swipe or arrow keys to move &middot; Tap to jump &middot; Drag down to duck</div>
+    </div>
+  </div>
+
+  
+  <div id="ios-install-guide" class="modal-overlay" hidden>
+    <div class="modal-card">
+      <div class="outlined-text" id="install-guide-title" style="font-size:20px;">ADD TO HOME SCREEN</div>
+      <ol class="ios-steps" id="ios-steps">
+        <li>Tap the <strong>Share</strong> icon <span class="share-glyph" data-icon="ios-share"></span> in Safari's toolbar</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong></li>
+        <li>Tap <strong>Add</strong> — done!</li>
+      </ol>
+      <button class="btn btn-secondary" id="btn-ios-guide-close">GOT IT</button>
+    </div>
+  </div>
+
+  
+  <div id="screen-game" class="screen" hidden>
+    <canvas id="game-canvas"></canvas>
+
+    <div class="vignette" id="vignette"></div>
+
+    <div class="hud">
+      <div class="hud-top-row">
+        <button class="icon-btn" id="btn-exit" data-icon="xmark"></button>
+        <div class="pill" id="hud-distance"><span class="pill-icon pill-icon-blue" data-icon="arrow"></span><span class="pill-text">0m</span></div>
+        <div class="pill" id="hud-salvage"><span class="pill-icon pill-icon-gold" data-icon="cube"></span><span class="pill-text">0</span></div>
+        <div class="pill" id="hud-intel"><span class="pill-icon pill-icon-teal" data-icon="flask"></span><span class="pill-text">0</span></div>
+        <div class="buff-icons" id="hud-buffs"></div>
+        <button class="icon-btn" id="btn-mute" data-icon="speaker"></button>
+      </div>
+      <div class="hud-second-row">
+        <div class="weapon-pill" id="hud-weapon"><span class="pill-icon pill-icon-red" data-icon="bolt"></span><span class="pill-text">Pistol</span></div>
+      </div>
+      <div class="health-row">
+        <span class="health-icon" data-icon="brain"></span>
+        <div class="health-bar-track">
+          <div class="health-bar-fill" id="health-fill"></div>
+          <div class="health-bar-gloss" id="health-gloss"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-over-card" id="game-over-card" hidden>
+      <div class="outlined-text go-title">DISTANCE RUN</div>
+      <div class="outlined-text go-distance" id="go-distance">0m</div>
+      <div class="pill-row">
+        <div class="pill"><span class="pill-icon pill-icon-gold" data-icon="cube"></span><span class="pill-text" id="go-salvage">0</span></div>
+        <div class="pill"><span class="pill-icon pill-icon-teal" data-icon="flask"></span><span class="pill-text" id="go-intel">0</span></div>
+      </div>
+      <div class="go-buttons">
+        <button class="btn btn-primary" id="btn-retry">RETRY</button>
+        <button class="btn btn-secondary" id="btn-menu">MENU</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="screen-upgrades" class="screen" hidden>
+    <div class="sky-bg"></div>
+    <div class="upgrades-header">
+      <button class="icon-btn" id="btn-back" data-icon="xmark"></button>
+      <div class="outlined-text upgrades-title">UPGRADES</div>
+      <div class="spacer-36"></div>
+    </div>
+    <div class="pill-row">
+      <div class="pill"><span class="pill-icon pill-icon-gold" data-icon="cube"></span><span class="pill-text" id="up-salvage">0</span></div>
+      <div class="pill"><span class="pill-icon pill-icon-teal" data-icon="flask"></span><span class="pill-text" id="up-intel">0</span></div>
+    </div>
+    <div class="upgrades-list" id="upgrades-list"></div>
+  </div>
+
+</div>
+<div id="rotate-guard">
+  <div class="rotate-guard-icon">📱</div>
+  <div class="rotate-guard-text">Rotate your device to portrait to play</div>
+</div>
+<script src="icons.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
