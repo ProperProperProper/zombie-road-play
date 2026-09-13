@@ -3,19 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<title>Zombie Road</title>
-<link rel="manifest" href="manifest.json">
+<title>Zombie Bridge</title>
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#6BB8F2">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Zombie Road">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
 </head>
 <body>
 <div id="app">
@@ -23,11 +19,12 @@
   
   <div id="screen-menu" class="screen">
     <div class="sky-bg"></div>
-    <div class="ground-strip"></div>
+    <canvas id="menu-canvas"></canvas>
+    <div class="menu-scrim"></div>
     <div class="menu-content">
       <div class="title-block">
         <div class="outlined-text title-main">ZOMBIE</div>
-        <div class="outlined-text title-sub">ROAD</div>
+        <div class="outlined-text title-sub">BRIDGE</div>
       </div>
       <div class="pill-row">
         <div class="pill" id="menu-best"><span class="pill-icon pill-icon-blue" data-icon="flag"></span><span class="pill-text">Best 0m</span></div>
@@ -39,22 +36,8 @@
       <div class="menu-buttons">
         <button class="btn btn-primary" id="btn-run">RUN</button>
         <button class="btn btn-secondary" id="btn-upgrades">UPGRADES</button>
-        <button class="btn btn-install" id="btn-install" hidden>📲 INSTALL APP</button>
       </div>
       <div class="hint-text">Swipe or arrow keys to move &middot; Tap to jump &middot; Drag down to duck</div>
-    </div>
-  </div>
-
-  
-  <div id="ios-install-guide" class="modal-overlay" hidden>
-    <div class="modal-card">
-      <div class="outlined-text" id="install-guide-title" style="font-size:20px;">ADD TO HOME SCREEN</div>
-      <ol class="ios-steps" id="ios-steps">
-        <li>Tap the <strong>Share</strong> icon <span class="share-glyph" data-icon="ios-share"></span> in Safari's toolbar</li>
-        <li>Scroll down and tap <strong>Add to Home Screen</strong></li>
-        <li>Tap <strong>Add</strong> — done!</li>
-      </ol>
-      <button class="btn btn-secondary" id="btn-ios-guide-close">GOT IT</button>
     </div>
   </div>
 
